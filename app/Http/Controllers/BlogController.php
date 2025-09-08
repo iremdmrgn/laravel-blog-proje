@@ -19,18 +19,48 @@ public function index()
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        //
-    }
+  public function create()
+{
+    // Kategorileri ve yazarları formda göstermek için çekebiliriz
+    $authors = \App\Models\Author::all();
+    $categories = \App\Models\Category::all();
+
+    return view('admin.blogs.create', compact('authors', 'categories'));
+}
+
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        //
+{
+    // Form verilerini doğrula
+    $request->validate([
+        'title' => 'required|string|max:255',
+        'content' => 'required|string',
+        'author_id' => 'required|exists:authors,id',
+        'status' => 'required|in:0,1',
+        'categories' => 'array',
+        'categories.*' => 'exists:categories,id',
+    ]);
+
+    // Blog oluştur
+    $blog = \App\Models\Blog::create([
+        'title' => $request->title,
+        'content' => $request->content,
+        'author_id' => $request->author_id,
+        'status' => $request->status,
+    ]);
+
+    // Seçilen kategorileri ekle
+    if ($request->has('categories')) {
+        $blog->categories()->sync($request->categories);
     }
+
+    // Liste sayfasına yönlendir
+    return redirect()->route('blogs.index')->with('success', 'Blog başarıyla eklendi!');
+}
+
 
     /**
      * Display the specified resource.
