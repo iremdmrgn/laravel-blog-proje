@@ -26,13 +26,13 @@
                             <tr>
                                 <td class="border px-4 py-2">{{ $blog->id }}</td>
                                 <td class="border px-4 py-2">{{ $blog->title }}</td>
-                                <td class="border px-4 py-2">{{ $blog->author->name }}</td>
+                                <td class="border px-4 py-2">{{ $blog->author->name ?? 'Yok' }}</td>
                                 <td class="border px-4 py-2">
-                                    @foreach ($blog->categories as $cat)
+                                    @foreach ($blog->categories ?? [] as $cat)
                                         <span class="bg-gray-200 px-2 py-1 rounded">{{ $cat->name }}</span>
                                     @endforeach
                                 </td>
-                                <td class="border px-4 py-2">{{ $blog->status ? 'Aktif' : 'Pasif' }}</td>
+                                <td class="border px-4 py-2">{{ ucfirst($blog->status) }}</td>
                                 <td class="border px-4 py-2">
                                     <a href="{{ route('blogs.edit', $blog->id) }}" class="text-blue-500">Düzenle</a>
                                     <form action="{{ route('blogs.destroy', $blog->id) }}" method="POST" class="inline">
@@ -45,6 +45,7 @@
                         @endforeach
                     </tbody>
                 </table>
+
             </div>
         </div>
     </div>

@@ -9,9 +9,11 @@ class BlogController extends Controller
     /**
      * Display a listing of the resource.
      */
- public function index()
+public function index()
 {
-    $blogs = \App\Models\Blog::all(); // Veritabanındaki tüm bloglar
+    // İlişkili author ve categories verilerini de yükle
+    $blogs = \App\Models\Blog::with(['author', 'categories'])->get();
+
     return view('admin.blogs.index', compact('blogs'));
 }
 
