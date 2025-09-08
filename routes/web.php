@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\BlogController; 
+
 use Illuminate\Support\Facades\Route;
 
 /*

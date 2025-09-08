@@ -11,9 +11,7 @@ class BlogController extends Controller
      */
 public function index()
 {
-    // İlişkili author ve categories verilerini de yükle
-    $blogs = \App\Models\Blog::with(['author', 'categories'])->get();
-
+    $blogs = \App\Models\Blog::with(['author', 'categories'])->get(); // ilişkileri eager load ediyoruz
     return view('admin.blogs.index', compact('blogs'));
 }
 
