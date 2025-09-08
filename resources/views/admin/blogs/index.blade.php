@@ -7,6 +7,19 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+
+            {{-- Flash mesaj --}}
+            @if(session('success'))
+                <div 
+                    x-data="{ show: true }" 
+                    x-show="show" 
+                    x-init="setTimeout(() => show = false, 3000)" 
+                    class="bg-green-200 text-green-800 p-4 rounded mb-4"
+                >
+                    {{ session('success') }}
+                </div>
+            @endif
+
             <div class="bg-white shadow-sm sm:rounded-lg p-6">
                 <a href="{{ route('blogs.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded">Yeni Blog Ekle</a>
 

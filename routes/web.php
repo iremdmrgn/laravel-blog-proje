@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BlogController; 
-
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Frontend: kullanıcılar için blog listesi
+Route::get('/blogs', [BlogController::class, 'frontendIndex'])->name('blogs.frontend');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
