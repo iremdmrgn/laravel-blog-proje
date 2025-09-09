@@ -3,15 +3,16 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Category;
 
 class CategoryFactory extends Factory
 {
-    protected $model = \App\Models\Category::class;
+    protected $model = Category::class;
 
-    public function definition(): array
+    public function definition()
     {
         return [
-            'name' => $this->faker->word,
+            'name' => ucfirst($this->faker->word),
         ];
     }
 }

@@ -3,16 +3,17 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Author;
 
 class AuthorFactory extends Factory
 {
-    protected $model = \App\Models\Author::class;
+    protected $model = Author::class;
 
-    public function definition(): array
+    public function definition()
     {
         return [
             'name' => $this->faker->name,
-            'email' => $this->faker->unique()->safeEmail, // bu satırı ekle
+            'email' => $this->faker->unique()->safeEmail,
         ];
     }
 }
