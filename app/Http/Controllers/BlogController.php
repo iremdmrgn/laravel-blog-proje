@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Blog; 
 
 use Illuminate\Http\Request;
 
@@ -70,18 +71,57 @@ class BlogController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        //
-    }
+public function edit($id)
+{
+    $blog = Blog::findOrFail($id);
+
+    // Yazarları ve kategorileri al
+    $authors = \App\Models\Author::all(); // bu doğru
+ // ya da ayrı Author modelin varsa onu kullan
+    $categories = \App\Models\Category::all(); // kategori modelin varsa
+
+    return view('admin.blogs.edit', compact('blog', 'authors', 'categories'));
+}
+
+
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+public function update(Request $request, $id)
+{
+    $blog = Blog::findOrFail($id);
+
+    // Validasyon
+    $request->validate([
+        'title' => 'required|string|max:255',
+        'content' => 'required|string',
+        'author_id' => 'required|exists:authors,id',
+        'categories' => 'array',
+        'categories.*' => 'exists:categories,id',
+        'status' => 'required|in:0,1', // "0" veya "1" string olarak da kabul
+    ]);
+
+    // Blog güncelle
+    $blog->title = $request->title;
+    $blog->content = $request->content;
+    $blog->author_id = $request->author_id;
+   $blog->status = $request->status; // artık string olarak kaydediyoruz
+ // string'i integer olarak kaydet
+
+    $blog->save();
+
+    // Kategorileri sync et (seçilmemişse boş)
+    $blog->categories()->sync($request->categories ?? []);
+
+    return redirect()->route('blogs.index')
+        ->with('success', 'Blog başarıyla güncellendi.');
+}
+
+
+
+
+
 
     /**
      * Remove the specified resource from storage.

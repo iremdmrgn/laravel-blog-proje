@@ -46,10 +46,11 @@
 
                     <div class="mb-4">
                         <label class="block">Durum</label>
-                        <select name="status" class="w-full border rounded px-3 py-2">
-                            <option value="1" {{ $blog->status ? 'selected' : '' }}>Aktif</option>
-                            <option value="0" {{ !$blog->status ? 'selected' : '' }}>Pasif</option>
-                        </select>
+ <select name="status" class="w-full border rounded px-3 py-2">
+    <option value="aktif" {{ $blog->status == 'aktif' ? 'selected' : '' }}>Aktif</option>
+    <option value="pasif" {{ $blog->status == 'pasif' ? 'selected' : '' }}>Pasif</option>
+</select>
+
                     </div>
 
                     <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Güncelle</button>

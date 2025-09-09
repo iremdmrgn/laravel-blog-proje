@@ -27,4 +27,9 @@ class Blog extends Model
     {
         return $this->belongsToMany(Category::class);
     }
+    // App\Models\Blog.php
+protected $casts = [
+    'status' => 'integer',
+];
+
 }

@@ -45,7 +45,13 @@
                                         <span class="bg-gray-200 px-2 py-1 rounded">{{ $cat->name }}</span>
                                     @endforeach
                                 </td>
-                                <td class="border px-4 py-2">{{ ucfirst($blog->status) }}</td>
+                                <td class="border px-4 py-2">
+                                    @if($blog->status == 1)
+                                        <span class="text-green-600 font-bold">Aktif</span>
+                                    @else
+                                        <span class="text-red-600 font-bold">Pasif</span>
+                                    @endif
+                                </td>
                                 <td class="border px-4 py-2">
                                     <a href="{{ route('blogs.edit', $blog->id) }}" class="text-blue-500">Düzenle</a>
                                     <form action="{{ route('blogs.destroy', $blog->id) }}" method="POST" class="inline">
