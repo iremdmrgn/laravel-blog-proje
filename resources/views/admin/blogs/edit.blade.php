@@ -1,8 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Blog Düzenle
-        </h2>
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">Blog Düzenle</h2>
     </x-slot>
 
     <div class="py-12">
@@ -13,17 +11,17 @@
                     @method('PUT')
 
                     <div class="mb-4">
-                        <label class="block">Başlık</label>
+                        <label>Başlık</label>
                         <input type="text" name="title" value="{{ old('title', $blog->title) }}" class="w-full border rounded px-3 py-2" required>
                     </div>
 
                     <div class="mb-4">
-                        <label class="block">İçerik</label>
+                        <label>İçerik</label>
                         <textarea name="content" rows="5" class="w-full border rounded px-3 py-2" required>{{ old('content', $blog->content) }}</textarea>
                     </div>
 
                     <div class="mb-4">
-                        <label class="block">Yazar</label>
+                        <label>Yazar</label>
                         <select name="author_id" class="w-full border rounded px-3 py-2" required>
                             @foreach ($authors as $author)
                                 <option value="{{ $author->id }}" {{ $blog->author_id == $author->id ? 'selected' : '' }}>
@@ -34,7 +32,7 @@
                     </div>
 
                     <div class="mb-4">
-                        <label class="block">Kategoriler</label>
+                        <label>Kategoriler</label>
                         @foreach ($categories as $cat)
                             <label class="inline-flex items-center mr-3">
                                 <input type="checkbox" name="categories[]" value="{{ $cat->id }}"
@@ -45,12 +43,13 @@
                     </div>
 
                     <div class="mb-4">
-                        <label class="block">Durum</label>
-                        <select name="status" class="w-full border rounded px-3 py-2" required>
-   <option value="aktif" {{ $blog->status == 'aktif' || $blog->status == 1 ? 'selected' : '' }}>Aktif</option>
-<option value="pasif" {{ $blog->status == 'pasif' || $blog->status == 0 ? 'selected' : '' }}>Pasif</option>
+                        <label>Durum</label>
+<select name="status" class="w-full border rounded px-3 py-2" required>
+    <option value="aktif" {{ $blog->status == 'aktif' ? 'selected' : '' }}>Aktif</option>
+    <option value="pasif" {{ $blog->status == 'pasif' ? 'selected' : '' }}>Pasif</option>
+</select>
 
-                        </select>
+
                     </div>
 
                     <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Güncelle</button>

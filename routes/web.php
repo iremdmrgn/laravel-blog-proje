@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BlogController; 
+use App\Http\Controllers\ContactController; // 📌 iletişim için eklendi
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +17,10 @@ Route::get('/', function () {
 
 // Frontend: kullanıcılar için blog listesi
 Route::get('/blogs', [BlogController::class, 'frontendIndex'])->name('blogs.frontend');
+
+// İletişim sayfası
+Route::get('/contact', [ContactController::class, 'showForm'])->name('contact.show');
+Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

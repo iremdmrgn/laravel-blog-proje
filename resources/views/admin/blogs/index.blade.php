@@ -1,21 +1,13 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Blog Listesi
-        </h2>
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">Blog Listesi</h2>
     </x-slot>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
-            {{-- Flash mesaj --}}
             @if(session('success'))
-                <div 
-                    x-data="{ show: true }" 
-                    x-show="show" 
-                    x-init="setTimeout(() => show = false, 3000)" 
-                    class="bg-green-200 text-green-800 p-4 rounded mb-4"
-                >
+                <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 3000)" class="bg-green-200 text-green-800 p-4 rounded mb-4">
                     {{ session('success') }}
                 </div>
             @endif
@@ -46,7 +38,7 @@
                                     @endforeach
                                 </td>
                                 <td class="border px-4 py-2">
-                                    @if($blog->status == 1)
+                                    @if($blog->status == 'aktif')
                                         <span class="text-green-600 font-bold">Aktif</span>
                                     @else
                                         <span class="text-red-600 font-bold">Pasif</span>
