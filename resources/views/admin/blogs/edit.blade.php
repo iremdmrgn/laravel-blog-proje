@@ -14,17 +14,17 @@
 
                     <div class="mb-4">
                         <label class="block">Başlık</label>
-                        <input type="text" name="title" value="{{ $blog->title }}" class="w-full border rounded px-3 py-2">
+                        <input type="text" name="title" value="{{ old('title', $blog->title) }}" class="w-full border rounded px-3 py-2" required>
                     </div>
 
                     <div class="mb-4">
                         <label class="block">İçerik</label>
-                        <textarea name="content" rows="5" class="w-full border rounded px-3 py-2">{{ $blog->content }}</textarea>
+                        <textarea name="content" rows="5" class="w-full border rounded px-3 py-2" required>{{ old('content', $blog->content) }}</textarea>
                     </div>
 
                     <div class="mb-4">
                         <label class="block">Yazar</label>
-                        <select name="author_id" class="w-full border rounded px-3 py-2">
+                        <select name="author_id" class="w-full border rounded px-3 py-2" required>
                             @foreach ($authors as $author)
                                 <option value="{{ $author->id }}" {{ $blog->author_id == $author->id ? 'selected' : '' }}>
                                     {{ $author->name }}
@@ -37,7 +37,7 @@
                         <label class="block">Kategoriler</label>
                         @foreach ($categories as $cat)
                             <label class="inline-flex items-center mr-3">
-                                <input type="checkbox" name="categories[]" value="{{ $cat->id }}" 
+                                <input type="checkbox" name="categories[]" value="{{ $cat->id }}"
                                     {{ $blog->categories->contains($cat->id) ? 'checked' : '' }}>
                                 <span class="ml-1">{{ $cat->name }}</span>
                             </label>
@@ -46,11 +46,11 @@
 
                     <div class="mb-4">
                         <label class="block">Durum</label>
- <select name="status" class="w-full border rounded px-3 py-2">
-    <option value="aktif" {{ $blog->status == 'aktif' ? 'selected' : '' }}>Aktif</option>
-    <option value="pasif" {{ $blog->status == 'pasif' ? 'selected' : '' }}>Pasif</option>
-</select>
+                        <select name="status" class="w-full border rounded px-3 py-2" required>
+   <option value="aktif" {{ $blog->status == 'aktif' || $blog->status == 1 ? 'selected' : '' }}>Aktif</option>
+<option value="pasif" {{ $blog->status == 'pasif' || $blog->status == 0 ? 'selected' : '' }}>Pasif</option>
 
+                        </select>
                     </div>
 
                     <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Güncelle</button>

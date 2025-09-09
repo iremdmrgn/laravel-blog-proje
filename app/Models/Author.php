@@ -11,6 +11,7 @@ class Author extends Model
 
     protected $fillable = [
         'name',
+        'email',
     ];
 
     // Bir yazarın birden fazla blogu olabilir

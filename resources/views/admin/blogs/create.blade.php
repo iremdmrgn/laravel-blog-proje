@@ -13,17 +13,17 @@
 
                     <div class="mb-4">
                         <label class="block">Başlık</label>
-                        <input type="text" name="title" class="w-full border rounded px-3 py-2">
+                        <input type="text" name="title" class="w-full border rounded px-3 py-2" required>
                     </div>
 
                     <div class="mb-4">
                         <label class="block">İçerik</label>
-                        <textarea name="content" rows="5" class="w-full border rounded px-3 py-2"></textarea>
+                        <textarea name="content" rows="5" class="w-full border rounded px-3 py-2" required></textarea>
                     </div>
 
                     <div class="mb-4">
                         <label class="block">Yazar</label>
-                        <select name="author_id" class="w-full border rounded px-3 py-2">
+                        <select name="author_id" class="w-full border rounded px-3 py-2" required>
                             @foreach ($authors as $author)
                                 <option value="{{ $author->id }}">{{ $author->name }}</option>
                             @endforeach
@@ -42,9 +42,9 @@
 
                     <div class="mb-4">
                         <label class="block">Durum</label>
-                        <select name="status" class="w-full border rounded px-3 py-2">
-                            <option value="1">Aktif</option>
-                            <option value="0">Pasif</option>
+                        <select name="status" class="w-full border rounded px-3 py-2" required>
+                            <option value="aktif">Aktif</option>
+                            <option value="pasif">Pasif</option>
                         </select>
                     </div>
 
