@@ -4,62 +4,89 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Blog;
+use App\Models\Author;
+use App\Models\Category;
 
 class BlogController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $blogs = Blog::with(['author', 'categories'])->get();
+        return view('admin.blogs.index', compact('blogs'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $authors = Author::all();
+        $categories = Category::all();
+        return view('admin.blogs.create', compact('authors', 'categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+            'author_id' => 'required|exists:authors,id',
+            'status' => 'required|in:aktif,pasif',
+            'categories' => 'array',
+            'categories.*' => 'exists:categories,id',
+        ]);
+
+        $blog = Blog::create([
+            'title' => $request->title,
+            'content' => $request->content,
+            'author_id' => $request->author_id,
+            'status' => $request->status,
+        ]);
+
+        if ($request->has('categories')) {
+            $blog->categories()->sync($request->categories);
+        }
+
+        return redirect()->route('blogs.index')->with('success', 'Blog başarıyla eklendi!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit($id)
     {
-        //
+        $blog = Blog::findOrFail($id);
+        $authors = Author::all();
+        $categories = Category::all();
+        return view('admin.blogs.edit', compact('blog', 'authors', 'categories'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $blog = Blog::findOrFail($id);
+
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+            'author_id' => 'required|exists:authors,id',
+            'status' => 'required|in:aktif,pasif',
+            'categories' => 'array',
+            'categories.*' => 'exists:categories,id',
+        ]);
+
+        $blog->update([
+            'title' => $request->title,
+            'content' => $request->content,
+            'author_id' => $request->author_id,
+            'status' => $request->status,
+        ]);
+
+        $blog->categories()->sync($request->categories ?? []);
+
+        return redirect()->route('blogs.index')->with('success', 'Blog başarıyla güncellendi.');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function destroy($id)
     {
-        //
-    }
+        $blog = Blog::findOrFail($id);
+        $blog->categories()->detach();
+        $blog->delete();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return redirect()->route('blogs.index')->with('success', 'Blog başarıyla silindi.');
     }
 }

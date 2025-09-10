@@ -95,18 +95,19 @@ class BlogController extends Controller
     }
 
 
-    public function frontendIndex()
-    {
-        if(auth()->check()) {
-            if(auth()->user()->is_admin) {
-                $blogs = Blog::with(['author','categories'])->get();
-            } else {
-                $blogs = Blog::with(['author','categories'])->where('status', 'aktif')->get();
-            }
-        } else {
-            $blogs = Blog::with(['author','categories'])->where('status', 'aktif')->get();
-        }
-
-        return view('admin.blogs.frontend_index', compact('blogs'));
+  public function frontendIndex()
+{
+    if (auth()->check() && auth()->user()->is_admin) {
+        // Admin tüm blogları görür
+        $blogs = Blog::with(['author','categories'])->get();
+    } else {
+        // Guest veya normal kullanıcı sadece Aktif blogları görür
+        $blogs = Blog::with(['author','categories'])
+                     ->where('status', 'aktif')
+                     ->get();
     }
+
+    return view('blogs.index', compact('blogs')); // frontend view yolu
+}
+
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BlogController; 
+use App\Http\Controllers\Admin\BlogController as AdminBlogController;
 use App\Http\Controllers\ContactController; // 📌 iletişim için eklendi
 use Illuminate\Support\Facades\Route;
 
@@ -38,8 +39,8 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
 
-    // Blog CRUD işlemleri
-    Route::resource('blogs', BlogController::class);
+    // Admin Blog CRUD
+    Route::resource('blogs', AdminBlogController::class);
 });
 
 require __DIR__.'/auth.php';
