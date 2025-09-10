@@ -7,14 +7,14 @@ use Illuminate\Http\Request;
 
 class BlogController extends Controller
 {
-    // Admin paneli: blog listesi
+    
     public function index()
     {
         $blogs = Blog::with(['author', 'categories'])->get();
         return view('admin.blogs.index', compact('blogs'));
     }
 
-    // Blog oluşturma formu
+
     public function create()
     {
         $authors = \App\Models\Author::all();
@@ -22,7 +22,7 @@ class BlogController extends Controller
         return view('admin.blogs.create', compact('authors', 'categories'));
     }
 
-    // Blog kaydet
+
     public function store(Request $request)
     {
         $request->validate([
@@ -48,7 +48,7 @@ class BlogController extends Controller
         return redirect()->route('blogs.index')->with('success', 'Blog başarıyla eklendi!');
     }
 
-    // Blog düzenleme formu
+   
     public function edit($id)
     {
         $blog = Blog::findOrFail($id);
@@ -57,7 +57,7 @@ class BlogController extends Controller
         return view('admin.blogs.edit', compact('blog', 'authors', 'categories'));
     }
 
-    // Blog güncelle
+
     public function update(Request $request, $id)
     {
         $blog = Blog::findOrFail($id);
@@ -85,7 +85,7 @@ class BlogController extends Controller
         return redirect()->route('blogs.index')->with('success', 'Blog başarıyla güncellendi.');
     }
 
-    // Blog sil
+   
     public function destroy($id)
     {
         $blog = Blog::findOrFail($id);
@@ -94,7 +94,7 @@ class BlogController extends Controller
         return redirect()->route('blogs.index')->with('success', 'Blog başarıyla silindi.');
     }
 
-    // Frontend: blog listesi
+
     public function frontendIndex()
     {
         if(auth()->check()) {

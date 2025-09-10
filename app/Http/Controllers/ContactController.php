@@ -7,13 +7,13 @@ use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
-    // Formu göster
+   
     public function showForm()
     {
         return view('contact');
     }
 
-    // Formu gönder
+   
    public function send(Request $request)
 {
     $request->validate([
