@@ -16,15 +16,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Frontend: kullanıcılar için blog listesi
+
 Route::get('/blogs', [BlogController::class, 'frontendIndex'])->name('blogs.frontend');
 
-// İletişim sayfası
+
 Route::get('/contact', [ContactController::class, 'showForm'])->name('contact.show');
 Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
+Route::get('/', function () {
+    return view('welcome');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -33,13 +33,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Admin paneli route grubu
+
 Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/', function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
 
-    // Admin Blog CRUD
+  
     Route::resource('blogs', AdminBlogController::class);
 });
 
