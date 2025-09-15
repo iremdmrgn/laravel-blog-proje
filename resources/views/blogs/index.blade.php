@@ -17,7 +17,7 @@
                 box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             ">
                 <h2 style="margin-bottom:10px;">{{ $blog->title }}</h2>
-                {{-- HTML içeriği render etmek için {!! !!} kullanıyoruz --}}
+               
                 <p>{!! $blog->content !!}</p>
                 <p><strong>Yazar:</strong> {{ $blog->author->name ?? 'Bilinmiyor' }}</p>
                 <p><strong>Kategoriler:</strong>
