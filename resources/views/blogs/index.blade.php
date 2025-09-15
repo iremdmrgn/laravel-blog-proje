@@ -1,4 +1,4 @@
-@extends('layouts.app') {{-- Ana layout kullanıyorsan --}}
+@extends('layouts.app') 
 @section('content')
 <div class="container" style="padding: 20px;">
     <h1 style="text-align:center; margin-bottom:30px;">Bloglar</h1>
