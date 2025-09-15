@@ -31,20 +31,24 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        // Yeni kullanıcı oluştur
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
+        // Kayıt olayı tetiklenir (mail vs.)
         event(new Registered($user));
 
+        // Kullanıcıyı giriş yapmış gibi oturum açtır
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        // Kayıt sonrası /profile sayfasına yönlendir
+        return redirect()->route('profile.edit');
     }
 }
