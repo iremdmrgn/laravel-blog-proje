@@ -44,6 +44,12 @@
             <p class="text-lg md:text-2xl mb-8 max-w-2xl mx-auto drop-shadow-md">
                 Harika bloglar keşfedin, düşüncelerinizi paylaşın ve dünya çapındaki okur topluluğu ile bağlantı kurun.
             </p>
+
+            <!-- Blogları Gör Butonu -->
+            <a href="{{ url('/blogs') }}" 
+               class="inline-block px-6 py-3 bg-white text-indigo-600 font-semibold rounded-lg shadow-md hover:bg-gray-100 transition">
+               Blogları Gör
+            </a>
         </div>
     </section>
 
