@@ -12,9 +12,10 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <a href="{{ url('/') }}" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-gray-900">
-                        Ana Sayfa
-                    </a>
+                  <a href="{{ route('profile.edit') }}" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-gray-900">
+    Ana Sayfa
+</a>
+
                     <a href="{{ route('blogs.frontend') }}" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-gray-900">
                         Bloglar
                     </a>
