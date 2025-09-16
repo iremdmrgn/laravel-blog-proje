@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="container p-6">
-        <h1 class="text-2xl font-bold mb-6">Blog Listesi</h1>
+        <h1 class="text-2xl font-bold mb-6 text-white">Blog Listesi</h1>
 
         @if(session('success'))
             <div class="bg-green-100 text-green-700 p-2 rounded mb-4">
