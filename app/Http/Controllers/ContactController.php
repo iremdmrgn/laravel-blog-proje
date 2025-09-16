@@ -7,38 +7,37 @@ use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
-   
+    // Formu göster
     public function showForm()
     {
-        return view('contact');
+        return view('contact'); // resources/views/contact.blade.php
     }
 
-   
-   public function send(Request $request)
-{
-    $request->validate([
-        'name' => 'required|string|max:100',
-        'email' => 'required|email',
-        'subject' => 'required|string|max:255',
-        'message' => 'required|string|max:1000',
-    ]);
+    // Formu gönder
+    public function send(Request $request)
+    {
+        $request->validate([
+            'name'    => 'required|string|max:100',
+            'email'   => 'required|email',
+            'subject' => 'required|string|max:255',
+            'message' => 'required|string|max:1000',
+        ]);
 
-    $adminEmail = "admin@site.com"; // kendi mailin
+        $adminEmail = "admin@site.com"; // kendi mailin
 
-    $data = [
-        'name'           => $request->name,
-        'email'          => $request->email,
-        'subject'        => $request->subject,
-        'messageContent' => $request->message, // ⚡ değiştirildi
-    ];
+        $data = [
+            'name'    => $request->name,
+            'email'   => $request->email,
+            'subject' => $request->subject,
+            'msg'     => $request->message, // ⚡ message yerine msg
+        ];
 
-    Mail::send('emails.contact', $data, function($m) use ($data, $adminEmail) {
-        $m->to($adminEmail)
-          ->subject("Yeni İletişim Mesajı: " . $data['subject']);
-    });
+        Mail::send('emails.contact', $data, function($m) use ($data, $adminEmail) {
+            $m->to($adminEmail)
+              ->subject("Yeni İletişim Mesajı: " . $data['subject']);
+        });
 
-    return back()->with('success', 'Mesajınız başarıyla gönderildi!');
-}
-
-
+        return redirect()->route('contact.show')
+                         ->with('success', 'Mesajınız başarıyla gönderildi!');
+    }
 }
