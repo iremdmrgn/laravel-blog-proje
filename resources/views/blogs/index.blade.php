@@ -1,35 +1,34 @@
-@extends('layouts.app') 
-@section('content')
-<div class="container" style="padding: 20px;">
-    <h1 style="text-align:center; margin-bottom:30px;">Bloglar</h1>
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            Bloglar
+        </h2>
+    </x-slot>
 
-    @if($blogs->isEmpty())
-        <p>Henüz blog bulunmamaktadır.</p>
-    @else
-        @foreach($blogs as $blog)
-            <div class="blog-item" style="
-                background-color:#f9f9f9; 
-                color:#333; 
-                border:1px solid #ccc; 
-                padding:20px; 
-                margin-bottom:20px; 
-                border-radius:8px;
-                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            ">
-                <h2 style="margin-bottom:10px;">{{ $blog->title }}</h2>
-               
-                <p>{!! $blog->content !!}</p>
-                <p><strong>Yazar:</strong> {{ $blog->author->name ?? 'Bilinmiyor' }}</p>
-                <p><strong>Kategoriler:</strong>
-                    @foreach($blog->categories as $category)
-                        {{ $category->name }}@if(!$loop->last), @endif
-                    @endforeach
-                </p>
-{{-- <p><strong>Status:</strong> {{ $blog->status }}</p> --}}
+    <div class="py-12">
+        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
+            
+            @if($blogs->isEmpty())
+                <p class="text-center">Henüz blog bulunmamaktadır.</p>
+            @else
+                @foreach($blogs as $blog)
+                    <div class="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 border border-gray-300 dark:border-gray-700 rounded-lg shadow-sm p-6 mb-6">
+                        <h2 class="text-2xl font-semibold mb-2">{{ $blog->title }}</h2>
+                        
+                        <div class="mb-4">
+                            {!! $blog->content !!}
+                        </div>
+                        
+                        <p><strong>Yazar:</strong> {{ $blog->author->name ?? 'Bilinmiyor' }}</p>
+                        <p><strong>Kategoriler:</strong>
+                            @foreach($blog->categories as $category)
+                                {{ $category->name }}@if(!$loop->last), @endif
+                            @endforeach
+                        </p>
+                    </div>
+                @endforeach
+            @endif
 
-            </div>
-        @endforeach
-    @endif
-</div>
-@endsection
-
+        </div>
+    </div>
+</x-app-layout>
