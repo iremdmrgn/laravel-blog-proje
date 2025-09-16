@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BlogController; 
 use App\Http\Controllers\Admin\BlogController as AdminBlogController;
 use App\Http\Controllers\ContactController; // iletişim için
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,10 +13,8 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
-// Ana sayfa olarak welcome sayfasını göstermek (herkes görebilir)
-Route::get('/', function () {
-    return view('welcome'); // resources/views/welcome.blade.php
-})->name('home');
+// Ana sayfa olarak login olmuş kullanıcı için home sayfasını göstermek
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Bloglar
 Route::get('/blogs', [BlogController::class, 'frontendIndex'])->name('blogs.frontend');

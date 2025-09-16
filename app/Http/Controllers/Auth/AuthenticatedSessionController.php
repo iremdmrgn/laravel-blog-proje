@@ -29,7 +29,7 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         // Login sonrası kullanıcıyı /profile sayfasına yönlendir
-        return redirect()->intended('/profile');
+        return redirect()->intended('/');
     }
 
     /**
